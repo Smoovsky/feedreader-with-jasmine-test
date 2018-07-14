@@ -13,6 +13,14 @@ $(function() {
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
     */
+  let stringMatching = function(s, mode){
+    if(typeof s !== 'string')
+      return false;
+    if(mode && mode === 'url')
+      return s.search(/^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/gi) !== -1;
+    return s !== '';
+  };
+
   describe('RSS Feeds', function() {
     /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -34,7 +42,7 @@ $(function() {
     it('have url', function(){
       allFeeds.forEach(function(feed){
         expect(feed.url).toBeDefined();
-        expect(feed.url).toBeTruthy();
+        expect(stringMatching(feed.url, 'url')).toBeTruthy();
       });
     });
 
@@ -45,7 +53,7 @@ $(function() {
     it('have name',function(){
       allFeeds.forEach(function(feed){
         expect(feed.name).toBeDefined();
-        expect(feed.name).toBeTruthy();
+        expect(stringMatching(feed.name)).toBeTruthy();
       });
     });
   });
@@ -85,9 +93,8 @@ $(function() {
     beforeEach(function(done){
       loadFeed(0, done);
     });
-    it('is successfully loaded', function(done){
+    it('is successfully loaded', function(){
       expect($('.feed').children().length > 0).toBe(true);
-      done();
     });
   });
   /* TODO: Write a new test suite named "New Feed Selection" */
@@ -105,9 +112,8 @@ $(function() {
         loadFeed(1, done);
       });
     });
-    it('changes DOM after selection', function(done){
+    it('changes DOM after selection', function(){
       expect($('.feed').html() !== oldDOM).toBe(true);
-      done();
     });
   });
 }());
