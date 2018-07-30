@@ -1,6 +1,6 @@
 # Project Overview
 
-This porject is to show my understanding of how to use Jasmine framework to perform unit test on javascript code.
+This project is to show my understanding of how to use Jasmine framework to perform unit test on javascript code.
 
 ## Keypoins of the Project
 Use "describe" to initialize a test for a specific component
